@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.skcc.beethoven.mapper.TbdSuerMapper"> 
+
+<insert id="addSuerDetail" parameterType="hashmap">
+INSERT INTO tbd_suer (uniq_cd, title, title_sub_no, obj_type, org_no, org_sub_no, obj_value) 
+	       VALUES (MD5(CONCAT(#{title}, '_', #{title_sub_no})), #{title}, #{title_sub_no}, #{obj_type}, #{org_no}, #{org_sub_no}, #{obj_value})
+</insert>
+
+</mapper>

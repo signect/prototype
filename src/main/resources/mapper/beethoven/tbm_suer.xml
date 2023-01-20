@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.skcc.beethoven.mapper.TbmSuerMapper"> 
+
+<select id="getListSuer" parameterType="hashmap" resultType="hashmap">
+	SELECT A.title, A.alternativeTitle, A.description, A.url1 AS url, A.relic_yn
+		<if test='obj_type eq null or obj_type eq "" or obj_type eq "movie"'>	
+	     , MAX(IF(C.obj_type = 'movie', C.obj_value, '')) AS movie
+	    </if>
+	    <if test='obj_type eq null or obj_type eq "" or obj_type eq "imageObject"'> 
+	     , MAX(IF(C.obj_type = 'imageObject', C.obj_value, '')) AS imageObject
+	    </if> 
+	    <if test='obj_type eq null or obj_type eq "" or obj_type eq "image"'> 
+	     , REPLACE(REPLACE(GROUP_CONCAT(IF(C.obj_type = 'image', C.obj_value, '*') ORDER BY C.org_sub_no), '*,', ''), ',*', '') AS image
+	    </if> 
+	 FROM tbm_suer A
+	    , (
+		<choose>
+	 	<when test='relic_yn != null and relic_yn neq ""'>			 
+			SELECT title, relic_yn, MIN(title_sub_no) AS title_sub_no, uniq_cd
+			  FROM tbm_suer
+			 WHERE title LIKE CONCAT('%',#{title},'%')			 
+			   AND relic_yn = #{relic_yn}
+			 GROUP BY title, relic_yn
+		</when>	
+	 	<otherwise>
+	 		SELECT title, title_sub_no, uniq_cd
+			  FROM tbm_suer
+			 WHERE title_sub_no = 1
+			   AND title LIKE CONCAT('%',#{title},'%')
+		</otherwise> 
+	 	</choose>	   	   		
+	     ) B
+	   , tbd_suer C
+	WHERE A.uniq_cd = B.uniq_cd
+	  AND A.uniq_cd = C.uniq_cd
+	  AND C.org_no = 1  
+	<if test='obj_type != null and obj_type neq ""'>	  
+	  AND C.obj_type = #{obj_type}
+	</if>	  
+	GROUP BY A.title, A.alternativeTitle, A.description, A.url1, A.relic_yn
+	ORDER BY A.title, A.alternativeTitle
+</select>
+
+<select id="getSuer" parameterType="hashmap" resultType="hashmap">
+	SELECT A.title, A.alternativeTitle, A.description, A.url1 AS url, A.relic_yn
+		<if test='obj_type eq null or obj_type eq "" or obj_type eq "movie"'>	
+	     , MAX(IF(B.obj_type = 'movie', B.obj_value, '')) AS movie
+	    </if>
+	    <if test='obj_type eq null or obj_type eq "" or obj_type eq "imageObject"'> 
+	     , MAX(IF(B.obj_type = 'imageObject', B.obj_value, '')) AS imageObject
+	    </if> 
+	    <if test='obj_type eq null or obj_type eq "" or obj_type eq "image"'> 
+	     , REPLACE(REPLACE(GROUP_CONCAT(IF(B.obj_type = 'image', B.obj_value, '*') ORDER BY B.org_sub_no), '*,', ''), ',*', '') AS image
+	    </if> 
+	  FROM tbm_suer A
+	     , tbd_suer B
+	 WHERE A.uniq_cd = B.uniq_cd
+	   AND B.org_no = 1
+	   AND A.title = #{title}
+	 <if test='obj_type != null and obj_type neq ""'>	  
+	   AND B.obj_type = #{obj_type}
+	 </if>
+	 <if test='relic_yn != null and relic_yn neq ""'>	  
+	   AND A.relic_yn = #{relic_yn}
+	 </if>
+	GROUP BY A.title, A.alternativeTitle, A.description, A.url1, A.relic_yn
+	ORDER BY A.relic_yn, A.title_sub_no
+	LIMIT 0, 1
+</select>
+
+<select id="getListSuerTemp" parameterType="hashmap" resultType="hashmap">
+	SELECT title, title_sub_no, description, alternativeTitle, subDescription, url, imageObject
+	  FROM tbm_suer_temp
+	 ORDER BY title, title_sub_no
+</select>
+
+<insert id="addSuerMaster" parameterType="hashmap">
+INSERT INTO tbm_suer (uniq_cd, title, title_sub_no, alternativeTitle, description, url1, url2, url3, movie1_num, movie2_num, movie3_num, image1_num, image2_num, image3_num, imageObject1_num, imageObject2_num, imageObject3_num, relic_yn) 
+	       VALUES (MD5(CONCAT(#{title}, '_', #{title_sub_no})), #{title}, #{title_sub_no}, #{alternativeTitle}, #{description}, #{url1}, #{url2}, #{url3}, #{movie1_num}, #{movie2_num}, #{movie3_num}, #{image1_num}, #{image2_num}, #{image3_num}, #{imageObject1_num}, #{imageObject2_num}, #{imageObject3_num}, #{relic_yn})
+</insert>
+
+</mapper>
