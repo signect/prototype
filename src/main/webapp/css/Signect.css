@@ -1,0 +1,24 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font-size: 14px;
+}
+.signforus_out {
+  background: rgba(255,255,255,1);
+  opacity: 1;
+  top: 200px;
+  right: 0px;
+  overflow: hidden;
+  position: fixed;
+}
+.signforus_btn {
+  width: 60px;
+  height: 60px;
+  background: url("http://localhost:8080/images/SLogOnly0.png");
+  background-repeat: round;
+  background-position: center;
+  background-size: cover;
+  opacity: 1;
+  overflow: hidden;
+}
