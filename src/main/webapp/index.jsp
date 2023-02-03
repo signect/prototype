@@ -17,7 +17,7 @@
 	<!-- <meta name='application-name' content='Signforus'/>
 	<meta name='msapplication-tooltip' content='Signforus' />
 	<meta id='meta_og_title' property='og:title' content='Signforus' /> -->
-	<link rel="canonical" href="http://localhost:8080/index" />
+	<link rel="canonical" href="http://13.209.125.149" />
 	<!-- <meta property="og:type" content="website"/> -->
 	<!-- <meta name="viewport" content="width=device-width,viewport-fit=cover,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" /> -->
 	
@@ -104,8 +104,8 @@
 											<div class="widget inline_widget logo  text_inline"
 												id="logo_w2023011912585c9079593">
 												<div class="logo_title ">
-													<a href="http://localhost:8080">
-														<img src="http://localhost:8080/images/Signforus_main_logo.png" alt="Signforus" width="237px"></img>
+													<a href="http://13.209.125.149">
+														<img src="/images/Signforus_main_logo.png" alt="Signforus" width="237px"></img>
 													</a>
 												</div>
 											</div>
