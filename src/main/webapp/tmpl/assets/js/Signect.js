@@ -7,7 +7,7 @@
  * ---------------------------------------------------------------------------- */
 const Signect = () => {
 	
-	var ApiURL ="http://13.209.125.149/v1/api/btv/suers/"; // 로컬 테스트
+	var ApiURL ="http://13.209.125.149:8080/v1/api/btv/suers/"; // 로컬 테스트
 	//var ApiURL="https://cors-anywhere.herokuapp.com/http://maestroai.shop/v1/api/btv/suers/";
 	//var ApiURL="https://cors.bridged.cc/http://maestroai.shop/v1/api/btv/suers/";
 	
@@ -76,7 +76,7 @@ const Signect = () => {
 			
 		var arrText = searchText.trim().split('\n');
 		
-		var ApiURL ="http://13.209.125.149/v1/api/btv/suers/"; // 로컬 테스트
+		var ApiURL ="http://13.209.125.149:8080/v1/api/btv/suers/"; // 로컬 테스트
 		
 		if(!_isActiveViewBox()){
 			return;
