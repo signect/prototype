@@ -443,6 +443,127 @@
 		</div>
 		</main>
 	</div>
+	
+	<div doz_type="section"
+		class="section_wrap  pc_section       side_basic     "
+		id="s2023011927334d60040d6" style="" doz_change_mobile="N"
+		doz_aside="N" doz_side_width="230" doz_side_margin="0" doz_extend="N"
+		doz_mobile_section="N" doz_mobile_hide="N" doz_header_repeat="N"
+		doz_footer_repeat="N" doz_category="default">
+		<div class="section_bg_color _section_bg_color"
+			style="background-color: rgba(26, 193, 183, 0.5); -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#db454545, endColorstr=#db454545); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#db454545, endColorstr=#db454545); zoom: 1; position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
+		</div>
+		<main>
+		<div doz_type="inside" class="inside">
+			<div doz_type="row" doz_grid="12" class="doz_row">
+				<div doz_type="grid" doz_grid="12" class="col-dz col-dz-12">
+					<div doz_type="widget" id="w20230130094240c2cb48a">
+						<div class="_widget_data _ds_animated_except"
+							data-widget-name="여백" data-widget-type="padding"
+							data-widget-parent-is-mobile="N">
+							<div class="widget padding" data-height="30"
+								style="margin-top: px; margin-bottom: px;">
+								<div id="padding_w20230130094240c2cb48a"
+									style="width: 100%; min-height: 1px; height: 30px;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div doz_type="row" doz_grid="12" class="doz_row">
+				<div doz_type="grid" doz_grid="12" class="col-dz col-dz-12">
+					<div doz_type="widget" id="w20230130bd0e4b05f2414">
+						<div class="_widget_data " data-widget-name="텍스트"
+							data-widget-type="text" data-widget-anim="none"
+							data-widget-anim-duration="0.7" data-widget-anim-delay="0"
+							data-widget-parent-is-mobile="N">
+							<div doz_type="text"
+								class="widget _text_wrap widget_text_wrap fr-view  default_padding "
+								id="text_w20230130bd0e4b05f2414">
+								<div class="text-table ">
+									<div>
+										<h2 style="text-align: left;">
+											<strong>수어번역 사용법</strong>
+										</h2>
+										<br>
+										<h4 style="text-align: left; color: black;">
+											1. 아래의 나열된 단어를 마우스로 드래그해서 선택<br>
+											2. 선택 후, 마우스로 Drag해서 signforus or viewbox에 Drop<br>
+											3. 우측의 viewbox에서 수어 영상이 재생됩니다. 
+										</h4>
+										<br>
+										<h4 style="text-align: left; color: black;">
+											<strong>무상 교육 시민 건강 번역 수어</strong>
+										</h4>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div doz_type="row" doz_grid="12" class="doz_row">
+				<div doz_type="grid" doz_grid="12" class="col-dz col-dz-12">
+					<div doz_type="widget" id="w202301301f61597253408">
+						<div class="_widget_data _ds_animated_except"
+							data-widget-name="여백" data-widget-type="padding"
+							data-widget-parent-is-mobile="N">
+							<div class="widget padding" data-height="30"
+								style="margin-top: px; margin-bottom: px;">
+								<div id="padding_w202301301f61597253408"
+									style="width: 100%; min-height: 1px; height: 30px;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div doz_type="row" doz_grid="12" class="doz_row">
+				<div doz_type="grid" doz_grid="12" class="col-dz col-dz-12">
+					<div doz_type="widget" id="w202301308a6a1a0a488b7">
+						<div class="_widget_data " data-widget-name="동영상"
+							data-widget-type="video" data-widget-anim="none"
+							data-widget-anim-duration="0.7" data-widget-anim-delay="0"
+							data-widget-parent-is-mobile="N">
+							<div id="video_w202301308a6a1a0a488b7"
+								class="widget movie _video_wrap " style="position: relative; border: 2px solid white;">
+								<div
+									style="overflow: hidden; text-align: center; height: 703.125px; border: 1px solid black; background-color: rgba(255, 255, 255, 0.5); "
+									id="img_box_w202301308a6a1a0a488b7"
+									class="img_box _img_box holder" data-vimeo-id="3e2SQVUn9Ns">
+									<div class="play-icon _cover_layer" style="display: none;"
+										onmouseover=";">
+									</div>
+									<input type="hidden" id="video" value=""/>
+									<video id="introduce" width="100%" controls muted loop autoplay src="/tmpl/global_assets/Signforus 단어 시연.mp4" ></video>
+									<div>
+										<h3 style="text-align: center; color: black;">
+											<strong>시연 영상</strong>
+										</h3>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div doz_type="row" doz_grid="12" class="doz_row">
+				<div doz_type="grid" doz_grid="12" class="col-dz col-dz-12">
+					<div doz_type="widget" id="w202301301f61597253408">
+						<div class="_widget_data _ds_animated_except"
+							data-widget-name="여백" data-widget-type="padding"
+							data-widget-parent-is-mobile="N">
+							<div class="widget padding" data-height="30"
+								style="margin-top: px; margin-bottom: px;">
+								<div id="padding_w202301301f61597253408"
+									style="width: 100%; min-height: 1px; height: 30px;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		</main>
+	</div>
 
 	<div doz_type="section"
 		class="section_wrap  pc_section       side_basic     "
