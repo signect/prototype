@@ -1,7 +1,10 @@
 package com.skcc.beethoven.config;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -112,7 +115,23 @@ public class BeethovenInterceptor implements HandlerInterceptor  {
     	
     	try
 		{
+    		Enumeration<String> itr = (Enumeration<String>) request.getHeaderNames();
+    		String origin = request.getHeader("origin");
+    		while( itr.hasMoreElements()) {
+    			String headEl = itr.nextElement();
+    			System.out.println("request " + headEl + " : " + request.getHeader(headEl));
+    		}
     		
+    		Iterator<String> ir = response.getHeaderNames().iterator();
+    		while( ir.hasNext()) {
+    			String headEl = ir.next();
+    			if("Access-Control-Allow-Origin".equals(headEl)) {
+    				response.setHeader("Access-Control-Allow-Origin", origin);
+    			}
+    			//System.out.println(headEl + " : " + response.getHeader(headEl));
+    		}
+    		
+    		response.setHeader("name", "skykyw");
 		}
 		catch(Exception e)
 		{
