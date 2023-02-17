@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -80,7 +81,7 @@ public class BeethovenRestController {
 	
 	@Autowired
 	private SuerService suerService;
-
+	
 	@ApiOperation(httpMethod = "GET"
 			,value = "Health Check"
 			,notes = "서버의 상태를 체크합니다."
@@ -178,6 +179,7 @@ public class BeethovenRestController {
 		}
 	}
     
+	@CrossOrigin
     @ApiOperation(httpMethod = "GET"
     		,value = "수어 단어 검색(단건)"
 			,notes = "검색어와 일치하는 수어 단어를 검색한다."
