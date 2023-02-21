@@ -4,11 +4,13 @@ class Signforus{
 		
 		if("oper" == isServer){
 			this.ApiURL = "http://signforus.co.kr/v1/api/btv/suers/"; // 운영 테스트
+			this.objectScript = "http://signforus.co.kr/tmpl/assets/js/signforus_object.js";
 		}else{
 			this.ApiURL = "http://localhost:8080/v1/api/btv/suers/"; // 개발 테스트
+			this.objectScript = "http://localhost:8080/tmpl/assets/js/signforus_object.js";
 		}
 		
-		$.getScript("http://localhost:8080/tmpl/assets/js/signforus_object.js", function(response, status){
+		$.getScript(this.objectScript, function(response, status){
 			alert("loaded component!");
 			
 			var tgbtn = document.getElementById('tg_suer');	//	inner button tooltip
