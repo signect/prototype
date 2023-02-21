@@ -14,6 +14,8 @@
 	<!-- <meta property="og:url" content="https://skykyw.imweb.me/"> -->
 	<title>Signforus</title>
 	
+	<!-- <meta name="referrer" content="unsafe-url" /> -->
+	
 	<!-- <meta name='application-name' content='Signforus'/>
 	<meta name='msapplication-tooltip' content='Signforus' />
 	<meta id='meta_og_title' property='og:title' content='Signforus' /> -->
@@ -46,7 +48,11 @@
 <script src="./signet_files/vue.global.prod.js.다운로드"></script>
 <script src="./signet_files/axios.min.js.다운로드"></script>
 
-<script src="./tmpl/assets/js/Signect.js"></script>
+<!-- <script src="./tmpl/assets/js/Signect.js"></script> -->
+<!-- <script type="module" src="./tmpl/assets/js/signforus_seoul.js"></script> -->
+<script src="./tmpl/assets/js/signforus_seoul.js"></script>
+<script src="./tmpl/assets/js/signforus_module.js" type="module"></script>
+
 
 <script type="text/javascript">
 	function headerMenuControl(){
