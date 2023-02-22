@@ -59,11 +59,15 @@ class Signforus{
 	
 	/* 마우스 위치 */
 	static eventSetting(evt){
-		const boundBox = evt.target.getBoundingClientRect();
+		/*const boundBox = evt.target.getBoundingClientRect();
 	    const coordX = boundBox.left;
 	    const coordY = boundBox.top;
 		this.mLeft = coordX;
-		this.mTop = coordY;
+		this.mTop = coordY;*/
+		const x = evt.pageX;
+		const y = evt.pageY;
+		this.mLeft = x;
+		this.mTop = y;
 	}
 	
 	/* Video Play 여부 */
@@ -100,9 +104,12 @@ class Signforus{
 	 			}
 	 			console.log('data : ', parseData);
 	 			Signforus.playVideoStart(parseData.movie, text);
+	 			
+	 			Signforus.textEvent = false;	//	Event 단어 차단 허용
 	 		},
 			error: function(request, status, error){
 				console.log("code:"+request.status+" / "+"message:"+request.responseText+" / "+"error:"+error);
+				Signforus.textEvent = false;	//	Event 단어 차단 허용
 			}
 		});
 	}
@@ -142,28 +149,57 @@ class Signforus{
 		var viewBox = document.getElementById('view_box');
 		viewBox.style.display = 'none';
 		Signforus.playVideo = false;
+		Signforus.textEvent = false;
 	}
 	
 	/* 수어 Off */
 	static inactiveStyleBtn() {
 		var viewBox = document.getElementById('view_box');
 		viewBox.style.display = 'none';
+		var tgbtn = document.getElementById('tg_suer');
+		tgbtn.style.backgroundColor = 'transparent';
 		this.suerActive = false;
 		Signforus.playVideo = false;
+		Signforus.textEvent = false;
 	}
 
 	/* 수어 On */
 	static activeStyleBtn() {
 		var viewBox = document.getElementById('view_box');
+		var tgbtn = document.getElementById('tg_suer');
+		tgbtn.style.backgroundColor = 'aliceblue';
 		this.suerActive = true;
 	}
 	
 	execute(evt, text){
 		if(!Signforus.posibleSignforus()){
+			Signforus.textEvent = false;
 			return;
 		}
 		Signforus.eventSetting(evt);	//	마우스 이벤트 위치
 		this.ajaxCallforText(text);		//	ajax 호출
+	}
+	
+	setControlKey(){
+		this.controlKey = true;
+	}
+	
+	setNonControlKey(){
+		this.controlKey = false;
+	}
+	
+	setEnabled(){
+		//Signforus.activeStyleBtn();
+		Signforus.textEvent = true;
+	}
+	
+	setDisabled(){
+		//Signforus.inactiveStyleBtn();
+		Signforus.textEvent = false;
+	}
+	
+	isEnabled(){
+		return (this.controlKey==true) && !(Signforus.textEvent==undefined?false:Signforus.textEvent);
 	}
 	
 }

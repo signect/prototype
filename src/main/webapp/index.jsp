@@ -48,10 +48,10 @@
 <script src="./signet_files/vue.global.prod.js.다운로드"></script>
 <script src="./signet_files/axios.min.js.다운로드"></script>
 
-<!-- <script src="./tmpl/assets/js/Signect.js"></script> -->
-<!-- <script type="module" src="./tmpl/assets/js/signforus_seoul.js"></script> -->
-<script src="./tmpl/assets/js/signforus_seoul.js"></script>
-<script src="./tmpl/assets/js/signforus_module.js" type="module"></script>
+<!-- Signfours Script 적용 -->
+<script src="http://signforus.co.kr/tmpl/assets/js/signforus_module.js" type="module"></script>
+<script src="http://signforus.co.kr/tmpl/assets/js/signforus_seoul.js"></script>
+<!-- Signfours Script 적용 끝 -->
 
 
 <script type="text/javascript">
@@ -493,9 +493,9 @@
 										</h2>
 										<br>
 										<h4 style="text-align: left; color: black;">
-											1. 아래의 나열된 단어를 마우스로 드래그해서 선택<br>
-											2. 선택 후, 마우스로 Drag해서 signforus or viewbox에 Drop<br>
-											3. 우측의 viewbox에서 수어 영상이 재생됩니다. 
+											1. 우측의 Signforus 아이콘을 On(Sign On)<br>
+											2. Ctrl 누른 상태로 마우스로 Drag해서 글자 선택<br>
+											3. 마우스 하단에 수어 영상이 출력됩니다. 
 										</h4>
 										<br>
 										<h4 style="text-align: left; color: black;">

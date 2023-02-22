@@ -85,9 +85,7 @@ $('#tg_suer').on('click',function(){
 	var visible = $('#div_suer').attr('visible');
 	if(visible == undefined || visible == "false"){ 
 		activeStyleBtn();
-		tgbtn.style.backgroundColor = 'aliceblue';
 	}else{ 
 		inactiveStyleBtn();
-		tgbtn.style.backgroundColor = 'transparent';
 	}
 });
