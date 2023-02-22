@@ -4,7 +4,7 @@ var message = '수어통역';
 /*outer DIV */
 const outerDiv = document.createElement('div');	//	outer div
 outerDiv.id = 'outer_suer';
-//outerDiv.style.background = 'rgba(255,255,255,1)';
+//outerDiv.style.background = 'rgba(255,255,255,1)';;
 outerDiv.style.top = '200px';
 outerDiv.style.right = '0px';
 outerDiv.style.position = 'fixed';
@@ -45,18 +45,20 @@ const viewBox = document.createElement('div');	//	inner viewbox
 viewBox.id = 'view_box';
 viewBox.visible = 'false';
 viewBox.style.position = "absolute";
-viewBox.style.width = '500px';
-viewBox.style.height = '400px';
+viewBox.style.width = '320px';
+viewBox.style.height = '250px';
 viewBox.style.background ="rgba(237,250,245,1)";
-viewBox.style.padding ="10px 10px";
+viewBox.style.padding ="10px";
 viewBox.style.opacity = '1';
 viewBox.style.overflow = 'hidden';
+viewBox.style.boxShadow = '5px 5px 4px rgba(0,0,0,0.25)';
 /*viewer Box end */
 
 /*video Box */
 const videoBox = document.createElement('div');	//	inner videobox
 videoBox.id = 'div_suer';
-videoBox.style.width = '500px';
+videoBox.style.width = '300px';
+videoBox.style.maxWidth = '300px';
 viewBox.appendChild(videoBox);
 /*video Box end */ 
 
@@ -64,11 +66,11 @@ viewBox.appendChild(videoBox);
 const txtDiv = document.createElement('div');	//	inner text
 txtDiv.id = 'text_div';
 
-const txtSpan = document.createElement('span');	//	inner text
+const txtSpan = document.createElement('div');	//	inner text
 txtSpan.id = 'text_suer';
 txtSpan.value = 'text';
 txtSpan.style.fontFamily= 'Montserrat';
-txtSpan.style.fontWeight= 'Medium';
+txtSpan.style.fontWeight= 'bold';
 txtSpan.style.fontSize= '15px';
 txtSpan.style.textAlign = 'center';
 txtSpan.style.color = 'rgba(0,0,0,1)';

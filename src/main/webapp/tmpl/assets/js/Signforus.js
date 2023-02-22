@@ -125,7 +125,7 @@ class Signforus{
 		Signforus.activeStyleBtn();
 		var suer_div = $('#div_suer');
 		//suer_div.html('<input type="hidden" id="video" value=""/><video id="videoPlay" width="500px" controls muted autoplay ></video>');
-		suer_div.html('<input type="hidden" id="video" value=""/><video id="videoPlay" width="500px" controls muted autoplay ></video>');
+		suer_div.html('<input type="hidden" id="video" value=""/><video id="videoPlay" width="300px" controls muted autoplay ></video>');
 		$("#text_suer").text(videoTxt);
 		document.getElementById('videoPlay').addEventListener('ended', Signforus.videoPlayEnded, false);
 		Signforus.showVideoPlayer(video);
