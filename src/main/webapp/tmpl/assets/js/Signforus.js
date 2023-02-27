@@ -1,17 +1,99 @@
 class Signforus{
 	
+	/* 변수와 상수 (Variables & Constants)
+    -------------------------------------------------------------------------
+     */
+	apiURL;	/* 접속 API URL */
+	objectScript; /* UI 컴포넌트 경로 */
+	
+	mLeft;	/*왼쪽 좌표*/
+	mTop;	/*상단 좌표*/
+	
+	suerActive;	/*수어 Active 상태*/
+	playVideo;	/*비디오 Play 여부*/
+	textEvent;	/*Text 이벤트*/
+	
+	/* Singleton 메소드 class/instance
+    -------------------------------------------------------------------------
+     */
+	
+	/* Singleton class 객체 가져가기*/
+	static getClass(isServer){
+		Signforus.getInstance(isServer);
+		return this;
+	}
+	/* Singleton instance 가져가기*/
+	static getInstance(isServer){
+		Signforus.instance = Signforus.instance == undefined? new Signforus(isServer): Signforus.instance;
+		return Signforus.instance;
+	}
+	
+	/* Event 메소드
+    -------------------------------------------------------------------------
+     */
+	/* Key Down 이벤트*/
+	static evtControlKeyDown(){
+		Signforus.controlKey = true;
+	}
+	/* Key Up 이벤트*/
+	static evtControlKeyUp(){
+		Signforus.controlKey = false;
+	}
+	/* Mouse Up 이벤트  */
+	static evtMouseUp(evt){
+		Signforus.getInstance().setEnabled();
+		var selectTxt = window.getSelection();
+       	var range = selectTxt.getRangeAt(0);
+		var {startOffset, endOffset} = range;
+		if(startOffset === endOffset || selectTxt.baseNode.data == undefined){
+			Signforus.getInstance().setDisabled();
+			return;
+		}
+		var searchText = selectTxt.baseNode.data.substring(startOffset, endOffset);
+		var arrText = searchText.trim().split('\n');
+		Signforus.execute(evt, arrText[0]);
+	}
+	
+	/* 외부 오픈 메소드
+    -------------------------------------------------------------------------
+     */
+	/* 수어 서비스 가능여부 */
+	static isEnabled(){
+		return (Signforus.controlKey==true) && !(this.textEvent==undefined?false:this.textEvent);
+	}
+	/* 수어 서비스 실행 */
+	static execute(evt, text){
+		var me = Signforus.getInstance();
+		if(!me.posibleSignforus()){
+			me.setDisabled();
+			return;
+		}
+		me.eventSetting(evt);	//	마우스 이벤트 위치
+		me.ajaxCallforText(text);		//	ajax 호출
+	}
+	
+	static stop(){
+		var me = Signforus.getInstance();
+		me.videoPlayEnded();
+	}
+	
+	/* class 내부용 메소드
+    -------------------------------------------------------------------------
+     */ 
+	
+	/* 생성자 */
 	constructor(isServer){
 		
 		if("oper" == isServer){
-			this.ApiURL = "http://signforus.co.kr/v1/api/btv/suers/"; // 운영 테스트
+			this.apiURL = "http://signforus.co.kr/v1/api/btv/suers/"; // 운영 테스트
 			this.objectScript = "http://signforus.co.kr/tmpl/assets/js/signforus_object.js";
 		}else{
-			this.ApiURL = "http://localhost:8080/v1/api/btv/suers/"; // 개발 테스트
+			this.apiURL = "http://localhost:8080/v1/api/btv/suers/"; // 개발 테스트
 			this.objectScript = "http://localhost:8080/tmpl/assets/js/signforus_object.js";
 		}
 		
 		$.getScript(this.objectScript, function(response, status){
-			alert("loaded component!");
+			//alert("loaded component!");
 			
 			var tgbtn = document.getElementById('tg_suer');	//	inner button tooltip
 
@@ -24,7 +106,7 @@ class Signforus{
 			    ttBox.style.left = (coordX).toString() + "px";
 			    ttBox.style.top = (coordY + 60).toString() + "px";
 			    
-			    if(Signforus.isActiveSignforus()){ 
+			    if(Signforus.getInstance().isActiveSignforus()){ 
 					ttBox.innerHTML ="Sign On";
 				}else{ 
 					ttBox.innerHTML ="Sign Off";
@@ -44,12 +126,13 @@ class Signforus{
 			
 			/* 수어 버튼 클릭*/
 			tgbtn.addEventListener("click", function(){
-				var actvice = Signforus.isActiveSignforus();
+				var me = Signforus.getInstance();
+				var actvice = me.isActiveSignforus();
 				if(!actvice){ 
-					Signforus.activeStyleBtn();
+					me.activeStyleBtn();
 					tgbtn.style.backgroundColor = 'aliceblue';
 				}else{ 
-					Signforus.inactiveStyleBtn();
+					me.inactiveStyleBtn();
 					tgbtn.style.backgroundColor = 'transparent';
 				}
 			});
@@ -58,7 +141,8 @@ class Signforus{
 	}
 	
 	/* 마우스 위치 */
-	static eventSetting(evt){
+	eventSetting(evt){
+		var me = Signforus.getInstance();
 		/*const boundBox = evt.target.getBoundingClientRect();
 	    const coordX = boundBox.left;
 	    const coordY = boundBox.top;
@@ -71,23 +155,26 @@ class Signforus{
 	}
 	
 	/* Video Play 여부 */
-	static isActiveSignforus(){
-		return this.suerActive == undefined ? false : this.suerActive;
+	isActiveSignforus(){
+		var me = Signforus.getInstance();
+		return me.suerActive == undefined ? false : me.suerActive;
 	}
 	
 	/* Video Play 여부 */
-	static isPlayingSignforus(){
-		return Signforus.playVideo == undefined ? false : Signforus.playVideo;
+	isPlayingSignforus(){
+		var me = Signforus.getInstance();
+		return me.playVideo == undefined ? false : me.playVideo;
 	}
 	
 	/* Signforus 실행가능여부 */
-	static posibleSignforus() {
-		return Signforus.isActiveSignforus() && !Signforus.isPlayingSignforus();
+	posibleSignforus() {
+		return Signforus.instance.isActiveSignforus() && !Signforus.instance.isPlayingSignforus();
 	}
 	
 	/* ajax 호출 */
 	ajaxCallforText(text){
-		var paramURL = this.ApiURL.concat(text);
+		var me = Signforus.getInstance();
+		var paramURL = this.apiURL.concat(text);
 		console.log('paramURL : ',paramURL);
 		var Result;
 		
@@ -103,105 +190,85 @@ class Signforus{
 	 				var parseData = data;
 	 			}
 	 			console.log('data : ', parseData);
-	 			Signforus.playVideoStart(parseData.movie, text);
-	 			
-	 			Signforus.textEvent = false;	//	Event 단어 차단 허용
+	 			me.playVideoStart(parseData.movie, text);
+	 			me.textEvent = false;	//	Event 단어 차단 허용
 	 		},
 			error: function(request, status, error){
 				console.log("code:"+request.status+" / "+"message:"+request.responseText+" / "+"error:"+error);
-				Signforus.textEvent = false;	//	Event 단어 차단 허용
+				me.textEvent = false;	//	Event 단어 차단 허용
 			}
 		});
 	}
 	
 	/* Video 실행 메소드 */
-	static playVideoStart(videoURL, text){
+	playVideoStart(videoURL, text){
 		var video = 'http://sldict.korean.go.kr/multimedia/multimedia_files/convert/20191016/628347/MOV000255289_700X466.mp4';	//	없다 영상
 		var videoTxt = '없다';
 		if(typeof videoURL != "undefined" && videoURL != null && videoURL != ""){
 			video = videoURL;
 			videoTxt = text;
 		}
-		Signforus.activeStyleBtn();
+		Signforus.instance.activeStyleBtn();
 		var suer_div = $('#div_suer');
-		//suer_div.html('<input type="hidden" id="video" value=""/><video id="videoPlay" width="500px" controls muted autoplay ></video>');
 		suer_div.html('<input type="hidden" id="video" value=""/><video id="videoPlay" width="300px" controls muted autoplay ></video>');
 		$("#text_suer").text(videoTxt);
-		document.getElementById('videoPlay').addEventListener('ended', Signforus.videoPlayEnded, false);
-		Signforus.showVideoPlayer(video);
+		document.getElementById('videoPlay').addEventListener('ended', Signforus.instance.videoPlayEnded, false);
+		Signforus.instance.showVideoPlayer(video);
 	}
 	
 	/* Video start */
-	static showVideoPlayer(videoPath) {
+	showVideoPlayer(videoPath) {
+		var me = Signforus.getInstance();
 		$("#videoPlay").attr("src", videoPath);
 		
-		var left = (this.mLeft - 250).toString() + "px";
-	    var top = (this.mTop + 60).toString() + "px";
+		var left = (me.mLeft - 250).toString() + "px";
+	    var top = (me.mTop + 60).toString() + "px";
 	    
 		$('#view_box').css("left",left);
 		$('#view_box').css("top",top);
 		$('#view_box').css("display","block");
-		Signforus.playVideo = true;
+		me.playVideo = true;
 	}
 	
 	/* Video End 이벤트 */
-	static videoPlayEnded() {
+	videoPlayEnded() {
+		var me = Signforus.getInstance();
 		var viewBox = document.getElementById('view_box');
 		viewBox.style.display = 'none';
-		Signforus.playVideo = false;
-		Signforus.textEvent = false;
+		me.playVideo = false;
+		me.textEvent = false;
 	}
 	
 	/* 수어 Off */
-	static inactiveStyleBtn() {
+	inactiveStyleBtn() {
+		var me = Signforus.getInstance();
 		var viewBox = document.getElementById('view_box');
 		viewBox.style.display = 'none';
 		var tgbtn = document.getElementById('tg_suer');
 		tgbtn.style.backgroundColor = 'transparent';
-		this.suerActive = false;
-		Signforus.playVideo = false;
-		Signforus.textEvent = false;
+		me.suerActive = false;
+		me.playVideo = false;
+		me.textEvent = false;
 	}
-
+	
 	/* 수어 On */
-	static activeStyleBtn() {
+	activeStyleBtn() {
+		var me = Signforus.getInstance();
 		var viewBox = document.getElementById('view_box');
 		var tgbtn = document.getElementById('tg_suer');
 		tgbtn.style.backgroundColor = 'aliceblue';
-		this.suerActive = true;
-	}
-	
-	execute(evt, text){
-		if(!Signforus.posibleSignforus()){
-			Signforus.textEvent = false;
-			return;
-		}
-		Signforus.eventSetting(evt);	//	마우스 이벤트 위치
-		this.ajaxCallforText(text);		//	ajax 호출
-	}
-	
-	setControlKey(){
-		this.controlKey = true;
-	}
-	
-	setNonControlKey(){
-		this.controlKey = false;
+		me.suerActive = true;
 	}
 	
 	setEnabled(){
-		//Signforus.activeStyleBtn();
-		Signforus.textEvent = true;
+		var me = Signforus.getInstance();
+		me.textEvent = true;
 	}
 	
 	setDisabled(){
-		//Signforus.inactiveStyleBtn();
-		Signforus.textEvent = false;
+		var me = Signforus.getInstance();
+		me.textEvent = false;
 	}
-	
-	isEnabled(){
-		return (this.controlKey==true) && !(Signforus.textEvent==undefined?false:Signforus.textEvent);
-	}
-	
 }
 
 export default { Signforus };
